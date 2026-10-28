@@ -1,6 +1,7 @@
 // Writes the ticket (GitHub issue) texts for the problems in #4471 from the kb data, using the kb's own cause logic.
 import fs from 'node:fs';
-const KB = 'C:/Backupy/MEGA/S01E03/support-kb/src/lib/data/';
+import { fileURLToPath } from 'node:url';
+const KB = fileURLToPath(new URL('./src/lib/data/', import.meta.url));
 const REPO = process.argv[2] || 'krznow/support-kb';
 const PAGE = `https://github.com/${REPO}/blob/main/src/routes/kb/incidents/4471/what-it-shows/+page.svx`;
 const reports = JSON.parse(fs.readFileSync(KB + 'reports-4471.json', 'utf8'));
