@@ -14,7 +14,7 @@ signature: 'v1.eyJzdWIiOiIyODEzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpY
   import Callout from '#lib/kb/Callout.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 
-  const REPO = 'https://github.com/krznow/support-kb';
+  const REPO = 'https://github.com/Krznow/support-kb';
   const tickets = {
     parser: REPO + '/issues/1',
     hint: REPO + '/issues/2',

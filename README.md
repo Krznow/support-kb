@@ -37,7 +37,7 @@ Exported 2026-10-04 from the `support` repo, `apps/kb/` → `src/`.
 
 ---
 
-## This copy (krznow/support-kb, 2026-10-28)
+## This copy (Krznow/support-kb, 2026-10-28)
 
 The desk's export, with one page added: [`src/routes/kb/incidents/4471/what-it-shows/+page.svx`](src/routes/kb/incidents/4471/what-it-shows/+page.svx) — #4471 holds two problems, not one. Its tickets are this repo's issues. The page as the desk sees it, prerendered with styles inlined: [`rendered/kb/incidents/4471/what-it-shows.html`](rendered/kb/incidents/4471/what-it-shows.html) (and a screenshot next to it).
 

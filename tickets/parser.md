@@ -35,4 +35,4 @@ The desk read 5 of these reports (R-41202, R-41209, R-41236, R-41344, R-41620, l
 
 ---
 Source: `src/lib/data/reports-4471.json` in this repo (the desk's export of 2026-10-04), de-duplicated by report id (427 rows, 412 reports), grouped with the kb's own `causeOf` in `src/lib/kb/causes.ts`. The intake tag (`meta.intakeTag`) guesses from the reporter's browser locale and is not the cause.
-kb page: https://github.com/krznow/support-kb/blob/main/src/routes/kb/incidents/4471/what-it-shows/+page.svx
+kb page: https://github.com/Krznow/support-kb/blob/main/src/routes/kb/incidents/4471/what-it-shows/+page.svx
