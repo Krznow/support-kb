@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · what it shows: two problems, not one'
 owner: krznow
-status: proposed
+status: closed
 reviewed: 2026-10-28
 signature: 'v1.eyJzdWIiOiIyODEzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxNzQ5MjMsImV4cCI6MTc5MzI2MTMyM30.Y69pj96xOROfJGSEWEptrTafjSPBIHyqvJ6mOUbOa0g'
 ---
@@ -18,6 +18,11 @@ signature: 'v1.eyJzdWIiOiIyODEzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpY
   const tickets = {
     parser: REPO + '/issues/1',
     hint: REPO + '/issues/2',
+  };
+  // The desk's engineering update of 5 October 2026, as it posted it.
+  const outcomes = {
+    parser: { state: 'fixed', note: 'fix(dates): parse dd/mm for eu locales', closed: '2026-10-05' },
+    hint: { state: "won't fix", note: 'booking-v3 form retired', closed: '2026-10-05' },
   };
 </script>
 
@@ -57,7 +62,14 @@ through the form. The parser fix does not touch it. Until now it had no ticket o
 One ticket per problem, in the desk's tracker. Each count is the number of reports in #4471 that
 the ticket covers, computed from the export.
 
-<SplitTickets ticket={4471} {tickets} />
+<SplitTickets ticket={4471} {tickets} {outcomes} />
+
+## Outcome
+
+Engineering closed #4471 on 5 October. The `parser` fix shipped: the shared parser now reads
+day first for day-first locales. The `hint` problem was not fixed; the booking-v3 form was
+retired instead, which removes the hint and the bug with it. Both tickets above are closed with
+the desk's reason, so the split and its outcome stay on record.
 
 ## Read differently: the one-day moves
 

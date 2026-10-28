@@ -1,1 +1,1 @@
-Shared date parser reads day-first dates month-first (sched-prod) — 379 reports in #4471
+#4471 · parser · 379 reports — the shared parser reads day-first dates month first

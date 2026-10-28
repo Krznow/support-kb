@@ -1,1 +1,1 @@
-booking-v3 form prints MM/DD/YYYY under the date field for day-first tenants — 33 reports in #4471
+#4471 · hint · 33 reports — the form's date hint says MM/DD/YYYY, people type month first
