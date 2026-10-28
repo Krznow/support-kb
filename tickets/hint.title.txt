@@ -1,0 +1,1 @@
+booking-v3 form prints MM/DD/YYYY under the date field for day-first tenants — 33 reports in #4471

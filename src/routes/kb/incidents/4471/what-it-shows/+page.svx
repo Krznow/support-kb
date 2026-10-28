@@ -1,0 +1,84 @@
+---
+layout: runbook
+title: '#4471 · what it shows: two problems, not one'
+owner: krznow
+status: proposed
+reviewed: 2026-10-28
+signature: 'v1.eyJzdWIiOiIyODEzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxNzQ5MjMsImV4cCI6MTc5MzI2MTMyM30.Y69pj96xOROfJGSEWEptrTafjSPBIHyqvJ6mOUbOa0g'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import SplitTickets from '#lib/kb/SplitTickets.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const REPO = 'https://github.com/krznow/support-kb';
+  const tickets = {
+    parser: REPO + '/issues/1',
+    hint: REPO + '/issues/2',
+  };
+</script>
+
+The [page for #4471](/kb/incidents/4471) says one issue, known, one fix queued. Its own table
+says otherwise. Run the kb's cause logic (`src/lib/kb/causes.ts`) over the reports merged into
+#4471 and they do not share one cause. The desk merged on subject line alone
+([decision 0001](/kb/decisions/0001-dedupe-by-subject)), so two different bugs with the same
+symptom landed in one ticket, and one fix was queued for both.
+
+<Callout kind="warn">
+Not one issue. The table below is built from the export at render time; the counts are what the
+data shows, not what the page said.
+</Callout>
+
+## What #4471 holds
+
+<CauseTable ticket={4471} />
+
+The export's pages overlap, so the same report can appear twice; the table counts each report id
+once. The intake tag ("tagged as") is a guess from the reporter's browser locale and is wrong
+often: it is not the cause. The cause follows the tenant: their locale, and the booking form they run.
+
+## The two problems
+
+**`parser`.** The shared date parser in `sched-prod` reads every date month first. Every tenant
+on file writes the day first, so a booking on 7 April goes out as 4 July. Day and month swap
+whenever the day is 1 to 12. It hits every channel: app, email and form. This is the bug the
+queued fix is for.
+
+**`hint`.** The `booking-v3` form prints `MM/DD/YYYY` under its date field. The tenant's people
+type what the hint tells them, month first, and the form reads the value the tenant's way, day
+first. Same symptom, different bug: it only hits booking-v3 tenants in day-first locales, and only
+through the form. The parser fix does not touch it. Until now it had no ticket of its own.
+
+## Tickets
+
+One ticket per problem, in the desk's tracker. Each count is the number of reports in #4471 that
+the ticket covers, computed from the export.
+
+<SplitTickets ticket={4471} {tickets} />
+
+## Read differently: the one-day moves
+
+A few reports in the `parser` group describe a one-day shift, not a month flip: a Tuesday that
+showed as Monday, the same meeting on different days in Lisbon and Toronto, an invite that
+arrived before the booking. The desk noted them in `desk-notes.json`. By the kb's rule they are
+counted where they are filed, by tenant, and footnoted under the table above. Engineering should
+check them against the parser fix: a one-day move points at time zones, not at the parser.
+
+## For the desk
+
+- Subject line alone is not enough. Before merging a dates report, look up the tenant's form:
+  `booking-v3` plus a day-first locale is `hint`, everything else day-first is `parser`.
+  The [dedupe explorer](/kb/triage/dedupe) runs this check.
+- Keep the counts in components. The old page typed "412 reports" into a paragraph; the number
+  in the table above is computed and will follow the data when the desk keeps working.
+- Decision 0001 accepted that same bugs end up in separate tickets. #4471 shows the other
+  failure: different bugs in one ticket. A new decision record should replace it.
+
+## Since April
+
+<QueueTimeline ticket={4471} />
+
+<RenderStamp {signature} />
